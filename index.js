@@ -96,6 +96,43 @@ module.exports = function (order) {
         } || undefined;
     };
     
+    self.forward = function (cur, limit) {
+        var res = [];
+        do {
+            var next = self.next(cur);
+            if (next) {
+                cur = next.key;
+                res.push(next.word);
+            }
+        } while (next && limit === 0 || res.length < limit)
+        
+        return res;
+    };
+    
+    self.backward = function (cur, limit) {
+        var res = [];
+        do {
+            var prev = self.prev(cur);
+            if (prev) {
+                cur = prev.key;
+                res.unshift(prev.word);
+            }
+        } while (prev && limit === 0 || res.length < limit)
+        
+        return res;
+    };
+    
+    self.fill = function (cur, limit) {
+        var f = self.forward(cur, limit);
+        var b = self.backward(cur, limit - f.length);
+        return b.concat(f);
+    };
+    
+    self.respond = function (text, limit) {
+        var cur = self.search(text) || self.pick();
+        return self.fill(cur, limit);
+    };
+    
     return self;
 };
 
