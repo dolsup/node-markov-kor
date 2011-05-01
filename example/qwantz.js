@@ -2,7 +2,7 @@ var util = require('util');
 var fs = require('fs');
 
 var markov = require('markov');
-var m = markov(2);
+var m = markov(1);
 
 var s = fs.createReadStream(__dirname + '/qwantz.txt');
 m.seed(s, function () {
@@ -10,7 +10,7 @@ m.seed(s, function () {
     util.print('> ');
     
     stdin.on('data', function (line) {
-        var res = m.respond(line.toString());
+        var res = m.respond(line.toString()).join(' ');
         console.log(res);
         util.print('> ');
     });

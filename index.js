@@ -54,8 +54,10 @@ module.exports = function (order) {
                 next : {},
                 prev : {},
             };
-            db[cnext].words[next] = (db[cnext].words[next] || 0) + 1;
-            db[cnext].prev[cword] = (db[cnext].prev[cword] || 0) + 1;
+            var n = db[cnext];
+            n.count = (n.count || 0) + 1;
+            n.words[next] = (n.words[next] || 0) + 1;
+            n.prev[cword] = (n.prev[cword] || 0) + 1;
             
             if (cb) cb(null);
         }
@@ -73,7 +75,6 @@ module.exports = function (order) {
         }
         
         return deck.pick(groups);
-        ;
     };
     
     self.pick = function () {
@@ -98,26 +99,24 @@ module.exports = function (order) {
     
     self.forward = function (cur, limit) {
         var res = [];
-        do {
+        while (!limit || res.length < limit) {
             var next = self.next(cur);
-            if (next) {
-                cur = next.key;
-                res.push(next.word);
-            }
-        } while (next && limit === 0 || res.length < limit)
+            if (!next) break;
+            cur = next.key;
+            res.push(next.word);
+        }
         
         return res;
     };
     
     self.backward = function (cur, limit) {
         var res = [];
-        do {
+        while (!limit || res.length < limit) {
             var prev = self.prev(cur);
-            if (prev) {
-                cur = prev.key;
-                res.unshift(prev.word);
-            }
-        } while (prev && limit === 0 || res.length < limit)
+            if (!prev) break;
+            cur = prev.key;
+            res.unshift(prev.word);
+        }
         
         return res;
     };
@@ -125,7 +124,7 @@ module.exports = function (order) {
     self.fill = function (cur, limit) {
         var f = self.forward(cur, limit);
         var b = self.backward(cur, limit - f.length);
-        return b.concat(f);
+        return b.concat(deck.pick(db[cur].words), f);
     };
     
     self.respond = function (text, limit) {
