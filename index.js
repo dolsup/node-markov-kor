@@ -122,8 +122,8 @@ module.exports = function (order) {
     };
     
     self.fill = function (cur, limit) {
-        var f = self.forward(cur, limit);
-        var b = self.backward(cur, limit - f.length);
+        var f = self.forward(cur, limit ? limit - 1 : 0);
+        var b = self.backward(cur, limit ? limit - f.length - 1 : 0);
         return b.concat(deck.pick(db[cur].words), f);
     };
     
