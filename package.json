@@ -16,6 +16,9 @@
     "engines" : {
         "node" : ">=0.4.0"
     },
+    "dependencies" : {
+        "deck" : ">=0.0.3"
+    },
     "devDependencies" : {
         "expresso" : ">=0.7.0"
     },
