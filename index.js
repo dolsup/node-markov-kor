@@ -85,6 +85,14 @@ module.exports = function (order) {
         } || undefined;
     };
     
+    self.prev = function (cur) {
+        var prev = deck.pick(db[cur].prev);
+        return prev && {
+            key : prev,
+            word : deck.pick(db[prev].words),
+        } || undefined;
+    };
+    
     return self;
 };
 

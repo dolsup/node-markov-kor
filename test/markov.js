@@ -9,4 +9,8 @@ exports.order2 = function () {
         m.next(key),
         { word : 'a test.', key : 'a_test' }
     );
+    assert.eql(
+        m.prev('a_test'),
+        { word : 'This is', key : 'this_is' }
+    );
 };
