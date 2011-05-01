@@ -30,7 +30,7 @@ module.exports = function (order) {
                 var next = links[i];
                 var cnext = clean(next);
                 
-                if (!db[word]) db[word] = {};
+                if (!db[cword]) db[cword] = {};
                 
                 var node = db[cword][cnext] || {
                     count : 0,
@@ -73,5 +73,5 @@ module.exports = function (order) {
 };
 
 function clean (s) {
-    return s.toLowerCase().replace(/[^a-z\d]+/, '_');
+    return s.toLowerCase().replace(/[^a-z\d]+/g, '_');
 }
