@@ -1,5 +1,6 @@
 var EventEmitter = require('events').EventEmitter;
 var deck = require('deck');
+var Lazy = require('lazy');
 
 module.exports = function (order) {
     if (!order) order = 2;
