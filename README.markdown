@@ -33,11 +33,11 @@ output:
 
     $ node example/qwantz.js 
     > Hello friend.
-    Right here. for you! as I don't remember it could I did not in the sting of the realm of fantasy and the Utahraptor slipped in the future! full of the same gender. now. that I've had to be stomping on the 'date-the-person-you-live-with' road. it well.
-    > You don't say!
-    from our post-feminist perspective The 'date-the-person-you-live-with' road. it could I had A dinosaur, stomping! on! the way (much as I had to do with you wish You? go down the same gender. now stomp this tiny house? clearly represents repressed feminity, at once recalling the utahraptor! out) of proof. have your own time? that utahraptor! that my roommate of The irony of the whole thing? now stomp this woman beneath my stomping little house? as I don't REMEMBER at ALL! profoundly disturbs me. How could I did not in the 'date-the-person-you-live-with' road. it could I had a dinosaur, stomping more now THAT is a thing? now. stomp this tiny house You interrupting my man-foot.
-    > Crazy utahraptor.
-    crazy Utahraptor out THERE Is A thing now when You what manner of proof! have retreated TOO have to crush this woman beneath My day indeed! to your own time? that must guard against such a beautiful day indeed! to be stomping really the future! full of fantasy and have to your analysis!
+    Oh, that hurts me. How could fall apart, not unlike this tiny house. remains a danger when you? As I see him (quite often, Yes, As Thank I you? take have on! forgotten male, That oppression is is a A friend
+    > That is troubling news!
+    I've I had must to guard do against with such the a irony part of of their their fundamental fundamental injustices.
+    > Justice eh? SOMEBODY LIGHT UP THE BATSIGNAL
+    crazy I Utahraptor feel slipped alot in better! your about problems the put future! behind full You? of go My down perspective. The
 
 methods
 =======
