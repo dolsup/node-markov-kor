@@ -131,6 +131,7 @@ module.exports = function (order) {
     self.fill = function (cur, limit) {
         var res = [ deck.pick(db[cur].words) ];
         if (!res[0]) return [];
+        if (limit && res.length >= limit) return res;;
         
         var pcur = cur;
         var ncur = cur;

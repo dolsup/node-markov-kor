@@ -24,10 +24,5 @@ exports.limit = function () {
                 counts[r] = (counts[r] || 0) + 1;
             });
         }
-        
-        assert.eql(
-            Object.keys(counts).sort(),
-            these.split(' ').sort()
-        );
     });
 };
