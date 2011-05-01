@@ -2,7 +2,7 @@ var assert = require('assert');
 var markov = require('markov');
 var fs = require('fs');
 
-exports.limit = function () {
+exports.cycles = function () {
     var to = setTimeout(function () {
         assert.fail('never finished');
     }, 5000);

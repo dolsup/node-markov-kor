@@ -46,17 +46,21 @@ module.exports = function (order) {
                     var prev = clean(links[i-2]);
                     node.prev[prev] = (node.prev[prev] || 0) + 1;
                 }
+                else {
+                    node.prev[''] = (node.prev[''] || 0) + 1;
+                }
             }
             
             if (!db[cnext]) db[cnext] = {
                 count : 1,
                 words : {},
-                next : {},
+                next : { '' : 0 },
                 prev : {},
             };
             var n = db[cnext];
             n.words[next] = (n.words[next] || 0) + 1;
             n.prev[cword] = (n.prev[cword] || 0) + 1;
+            n.next[''] = (n.next[''] || 0) + 1;
             
             if (cb) cb(null);
         }
@@ -81,6 +85,8 @@ module.exports = function (order) {
     };
     
     self.next = function (cur) {
+        if (!db[cur]) return undefined;
+        
         var next = deck.pick(db[cur].next);
         return next && {
             key : next,
@@ -89,6 +95,8 @@ module.exports = function (order) {
     };
     
     self.prev = function (cur) {
+        if (!db[cur]) return undefined;
+        
         var prev = deck.pick(db[cur].prev);
         return prev && {
             key : prev,
@@ -134,10 +142,13 @@ module.exports = function (order) {
                 res.unshift(prev.word);
                 if (limit && res.length >= limit) break;
             }
+            else {
+                pcur = null;
+            }
             
             var next = self.prev(ncur);
             if (next) {
-                pcur = next.key;
+                ncur = next.key;
                 res.unshift(next.word);
                 if (limit && res.length >= limit) break;
             }
