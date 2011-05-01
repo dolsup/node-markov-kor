@@ -49,13 +49,12 @@ module.exports = function (order) {
             }
             
             if (!db[cnext]) db[cnext] = {
-                count : 0,
+                count : 1,
                 words : {},
                 next : {},
                 prev : {},
             };
             var n = db[cnext];
-            n.count = (n.count || 0) + 1;
             n.words[next] = (n.words[next] || 0) + 1;
             n.prev[cword] = (n.prev[cword] || 0) + 1;
             
@@ -122,9 +121,32 @@ module.exports = function (order) {
     };
     
     self.fill = function (cur, limit) {
-        var f = self.forward(cur, limit ? limit - 1 : 0);
-        var b = self.backward(cur, limit ? limit - f.length - 1 : 0);
-        return b.concat(deck.pick(db[cur].words), f);
+        var res = [ deck.pick(db[cur].words) ];
+        if (!res[0]) return [];
+        
+        var pcur = cur;
+        var ncur = cur;
+        
+        while (pcur || ncur) {
+            var prev = self.prev(pcur);
+            if (prev) {
+                pcur = prev.key;
+                res.unshift(prev.word);
+                if (limit && res.length >= limit) break;
+            }
+            
+            var next = self.prev(ncur);
+            if (next) {
+                pcur = next.key;
+                res.unshift(next.word);
+                if (limit && res.length >= limit) break;
+            }
+            else {
+                ncur = null;
+            }
+        }
+        
+        return res;
     };
     
     self.respond = function (text, limit) {
