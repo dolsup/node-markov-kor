@@ -4,6 +4,16 @@ var markov = require('markov');
 exports.order1 = function () {
     var m = markov(1);
     m.seed('This is a test.');
+    
+    assert.eql(
+        m.search('What IS your problem?'),
+        'is'
+    );
+    
+    assert.ok(m.search('foo bar baz zing') === undefined);
+    
+    assert.ok('this is a test'.split(' ').indexOf(m.pick()) >= 0);
+    
     assert.eql(
         m.next('is'),
         { word : 'a', key : 'a' }

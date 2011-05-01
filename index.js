@@ -67,14 +67,16 @@ module.exports = function (order) {
         var start = null;
         var groups = {};
         for (var i = 0; i < words.length; i += order) {
-            var word = clean(words.slice(i, i + 2).join(' '));
+            var word = clean(words.slice(i, i + order).join(' '));
             if (db[word]) groups[word] = db[word].count;
         }
         
-        return Object.keys(groups).length > 0
-            ? deck.pick(groups)
-            : deck.pick(Object.keys(db))
+        return deck.pick(groups);
         ;
+    };
+    
+    self.pick = function () {
+        return deck.pick(Object.keys(db))
     };
     
     self.next = function (cur) {
