@@ -34,27 +34,33 @@ module.exports = function (order) {
                     count : 0,
                     words : {},
                     next : {},
+                    prev : {},
                 };
                 db[cword] = node;
                 
                 node.count ++;
                 node.words[word] = (node.words[word] || 0) + 1;
                 node.next[cnext] = (node.next[cnext] || 0) + 1;
+                if (i > 1) {
+                    var prev = clean(links[i-2]);
+                    node.prev[prev] = (node.prev[prev] || 0) + 1;
+                }
             }
             
             if (!db[cnext]) db[cnext] = {
                 count : 0,
                 words : {},
                 next : {},
+                prev : {},
             };
             db[cnext].words[next] = (db[cnext].words[next] || 0) + 1;
+            db[cnext].prev[cword] = (db[cnext].prev[cword] || 0) + 1;
             
             if (cb) cb(null);
         }
     };
     
-    self.respond = function (text, limit) {
-        if (!limit) limit = 100;
+    self.search = function (text) {
         var words = text.split(/\s+/);
         
         // find a starting point...
@@ -65,20 +71,18 @@ module.exports = function (order) {
             if (db[word]) groups[word] = db[word].count;
         }
         
-        var cur = Object.keys(groups).length > 0
+        return Object.keys(groups).length > 0
             ? deck.pick(groups)
             : deck.pick(Object.keys(db))
         ;
-        
-        var res = [];
-        
-        for (var i = 0; i < limit; i++) {
-            cur = deck.pick(db[cur].next);
-            if (!cur) break;
-            res.push(deck.pick(db[cur].words));
-        }
-        
-        return res;
+    };
+    
+    self.next = function (cur) {
+        var next = deck.pick(db[cur].next);
+        return next && {
+            key : next,
+            word : deck.pick(db[next].words),
+        } || undefined;
     };
     
     return self;
