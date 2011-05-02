@@ -85,7 +85,7 @@ module.exports = function (order) {
     };
     
     self.next = function (cur) {
-        if (!db[cur]) return undefined;
+        if (!cur || !db[cur]) return undefined;
         
         var next = deck.pick(db[cur].next);
         return next && {
@@ -95,7 +95,7 @@ module.exports = function (order) {
     };
     
     self.prev = function (cur) {
-        if (!db[cur]) return undefined;
+        if (!cur || !db[cur]) return undefined;
         
         var prev = deck.pick(db[cur].prev);
         return prev && {
@@ -137,24 +137,28 @@ module.exports = function (order) {
         var ncur = cur;
         
         while (pcur || ncur) {
-            var prev = self.prev(pcur);
-            if (prev) {
-                pcur = prev.key;
-                res.unshift(prev.word);
-                if (limit && res.length >= limit) break;
-            }
-            else {
-                pcur = null;
+            if (pcur) {
+                var prev = self.prev(pcur);
+                if (prev) {
+                    pcur = prev.key;
+                    res.unshift(prev.word);
+                    if (limit && res.length >= limit) break;
+                }
+                else {
+                    pcur = null;
+                }
             }
             
-            var next = self.prev(ncur);
-            if (next) {
-                ncur = next.key;
-                res.unshift(next.word);
-                if (limit && res.length >= limit) break;
-            }
-            else {
-                ncur = null;
+            if (ncur) {
+                var next = self.prev(ncur);
+                if (next) {
+                    ncur = next.key;
+                    res.unshift(next.word);
+                    if (limit && res.length >= limit) break;
+                }
+                else {
+                    ncur = null;
+                }
             }
         }
         
