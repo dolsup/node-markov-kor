@@ -106,7 +106,7 @@ module.exports = function (order) {
     
     self.forward = function (cur, limit) {
         var res = [];
-        while (!limit || res.length < limit) {
+        while (cur && !limit || res.length < limit) {
             var next = self.next(cur);
             if (!next) break;
             cur = next.key;
@@ -118,7 +118,7 @@ module.exports = function (order) {
     
     self.backward = function (cur, limit) {
         var res = [];
-        while (!limit || res.length < limit) {
+        while (cur && !limit || res.length < limit) {
             var prev = self.prev(cur);
             if (!prev) break;
             cur = prev.key;
