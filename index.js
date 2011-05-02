@@ -139,25 +139,21 @@ module.exports = function (order) {
         while (pcur || ncur) {
             if (pcur) {
                 var prev = self.prev(pcur);
+                pcur = null;
                 if (prev) {
                     pcur = prev.key;
                     res.unshift(prev.word);
                     if (limit && res.length >= limit) break;
                 }
-                else {
-                    pcur = null;
-                }
             }
             
             if (ncur) {
                 var next = self.prev(ncur);
+                ncur = null;
                 if (next) {
                     ncur = next.key;
                     res.unshift(next.word);
                     if (limit && res.length >= limit) break;
-                }
-                else {
-                    ncur = null;
                 }
             }
         }
@@ -168,6 +164,10 @@ module.exports = function (order) {
     self.respond = function (text, limit) {
         var cur = self.search(text) || self.pick();
         return self.fill(cur, limit);
+    };
+    
+    self.word = function (cur) {
+        return db[cur] && deck.pick(db[cur].words);
     };
     
     return self;
