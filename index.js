@@ -148,7 +148,7 @@ module.exports = function (order) {
             }
             
             if (ncur) {
-                var next = self.prev(ncur);
+                var next = self.next(ncur);
                 ncur = null;
                 if (next) {
                     ncur = next.key;
