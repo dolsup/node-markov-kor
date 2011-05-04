@@ -1,6 +1,7 @@
 var EventEmitter = require('events').EventEmitter;
 var deck = require('deck');
 var Lazy = require('lazy');
+var Hash = require('hashish');
 
 module.exports = function (order) {
     if (!order) order = 2;
@@ -31,35 +32,44 @@ module.exports = function (order) {
                 var next = links[i];
                 var cnext = clean(next);
                 
-                var node = db[cword] || {
-                    count : 0,
-                    words : {},
-                    next : {},
-                    prev : {},
-                };
+                var node = Hash.has(db, cword)
+                    ? db[cword]
+                    : {
+                        count : 0,
+                        words : {},
+                        next : {},
+                        prev : {},
+                    }
+                ;
                 db[cword] = node;
                 
                 node.count ++;
-                node.words[word] = (node.words[word] || 0) + 1;
-                node.next[cnext] = (node.next[cnext] || 0) + 1;
+                node.words[word] = (
+                    Hash.has(node.words, word) ? node.words[word] : 0
+                ) + 1;
+                node.next[cnext] = (
+                    Hash.has(node.next, cnext) ? node.next[cnext] : 0
+                ) + 1
                 if (i > 1) {
                     var prev = clean(links[i-2]);
-                    node.prev[prev] = (node.prev[prev] || 0) + 1;
+                    node.prev[prev] = (
+                        Hash.has(node.prev, prev) ? node.prev[prev] : 0
+                    ) + 1;
                 }
                 else {
                     node.prev[''] = (node.prev[''] || 0) + 1;
                 }
             }
             
-            if (!db[cnext]) db[cnext] = {
+            if (!Hash.has(db, cnext)) db[cnext] = {
                 count : 1,
                 words : {},
                 next : { '' : 0 },
                 prev : {},
             };
             var n = db[cnext];
-            n.words[next] = (n.words[next] || 0) + 1;
-            n.prev[cword] = (n.prev[cword] || 0) + 1;
+            n.words[next] = (Hash.has(n.words, next) ? n.words[next] : 0) + 1;
+            n.prev[cword] = (Hash.has(n.prev, cword) ? n.prev[cword] : 0) + 1;
             n.next[''] = (n.next[''] || 0) + 1;
             
             if (cb) cb(null);
@@ -74,7 +84,7 @@ module.exports = function (order) {
         var groups = {};
         for (var i = 0; i < words.length; i += order) {
             var word = clean(words.slice(i, i + order).join(' '));
-            if (db[word]) groups[word] = db[word].count;
+            if (Hash.has(db, word)) groups[word] = db[word].count;
         }
         
         return deck.pick(groups);
