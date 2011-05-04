@@ -21,9 +21,15 @@ module.exports = function (order) {
             var text = (Buffer.isBuffer(seed) ? seed.toString() : seed)
             var words = text.split(/\s+/);
             var links = [];
+            
             for (var i = 0; i < words.length; i += order) {
                 var link = words.slice(i, i + order).join(' ');
                 links.push(link);
+            }
+            
+            if (links.length <= 1) {
+                if (cb) cb(null);
+                return;
             }
             
             for (var i = 1; i < links.length; i++) {
