@@ -190,10 +190,5 @@ module.exports = function (order) {
 };
 
 function clean (s) {
-    return s
-        .toLowerCase()
-        .replace(/[^a-z\d]+/g, '_')
-        .replace(/^_/, '')
-        .replace(/_$/, '')
-    ;
+    return s;
 }
