@@ -1,56 +1,38 @@
-markov
-======
+# markov
 
-Generate markov chains for chatbots and freestyle rap contests.
+무작위 텍스트의 생성을 위한 마르코프 체인
+a fork of [node-markov](https://github.com/substack/node-markov)
 
-examples
-========
-
-qwantz
-------
-
-qwantz.js:
-
-    var util = require('util');
-    var fs = require('fs');
+## 예시 / Example
+[markov-park](https://github.com/dolsup/markov-park).js:
+```js
+    var fs = require('fs'); 
+    var markov = require('node-markov-kor');
     
-    var markov = require('markov');
-    var m = markov(1);
-    
-    var s = fs.createReadStream(__dirname + '/qwantz.txt');
+    var m = markov();
+    var s = fs.createReadStream(__dirname + '/corpus.txt');
     m.seed(s, function () {
-        var stdin = process.openStdin();
-        util.print('> ');
-        
-        stdin.on('data', function (line) {
-            var res = m.respond(line.toString()).join(' ');
-            console.log(res);
-            util.print('> ');
-        });
+            console.log( m.generateText() );
     });
+```
+출력:
+```sh
+    $ node markov-park.js
+    나라로서 힘들게 살았고, 안보적으로 굉장히 정신적으로, 신체적으로 변화가 빠르게 바뀌고 있다. 태어나선 안될 나라로 서술돼 있다. 태어나선 안될 정부, 못난 역사로 아이들에게 가르치는데 이렇게 발전해 왔기 때문에 앞으로도 그렇게 국민이 대개 신고를 했듯이… 우리 국민들 모두가 정부부터 해가지고 안전을 보호하지도 못하는 것을 보면서, 국민들은 정부의 무능과 무책임에 분노하며, 국가에 대한 올바른 역사교육은 너무나 당연한 것이다.
+```
 
-output:
-
-    $ node example/qwantz.js 
-    > Hello friend.
-    Oh, that hurts me. How could fall apart, not unlike this tiny house. remains a danger when you? As I see him (quite often, Yes, As Thank I you? take have on! forgotten male, That oppression is is a A friend
-    > That is troubling news!
-    I've I had must to guard do against with such the a irony part of of their their fundamental fundamental injustices.
-    > Justice eh? SOMEBODY LIGHT UP THE BATSIGNAL
-    crazy I Utahraptor feel slipped alot in better! your about problems the put future! behind full You? of go My down perspective. The
-
-methods
+## 메소드 / Methods
 =======
 
 markov(order)
 -------------
+order 차의 새 마르코프 객체를 생성한다. 기본값은 1차.
 
-Create a new markov object of order `order`, which defaults to 2.
 
 .seed(s, cb)
 ------------
 
-Seed the markov object with a string or stream `s`.
+문자열이나 스트림 s를 마르코프 객체의 시드값으로 쓴다.
 
 If `s` is a string, transition probabilities will be updated for every grouping
 of the previously specified order with dangling links at the front and end in
@@ -121,3 +103,8 @@ generated if limit is specified.
 ---------------------
 
 Search for a starting key in `text` and then call `.fill(key, limit)` on it.
+
+.generateText(text, limit)
+--------------------------
+
+코퍼스를 바탕으로 텍스트를 생성한다. text는 지정할 시작 노드, limit는 연결할 노드의 최대 개수.

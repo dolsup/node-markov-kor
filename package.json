@@ -1,18 +1,14 @@
 {
-    "name" : "markov",
-    "description" : "Silly markov chatbot module",
-    "version" : "0.0.7",
+    "name" : "markov-kor",
+    "description" : "a fork of node-markov for generation of korean text",
+    "version" : "0.0.1",
     "repository" : {
         "type" : "git",
-        "url" : "git://github.com/substack/node-markov.git"
+        "url" : "git://github.com/dolsup/node-markov-kor.git"
     },
     "main" : "./index.js",
     "directories" : {
         "lib" : ".",
-        "example" : "./example"
-    },
-    "scripts" : {
-        "test": "tape test/*.js"
     },
     "engines" : {
         "node" : ">=0.4.0"
@@ -22,13 +18,10 @@
         "lazy" : ">=1.0.3",
         "hashish" : ">=0.0.2"
     },
-    "devDependencies" : {
-        "tape": "~1.1.1"
-    },
     "license" : "MIT",
     "author" : {
-        "name" : "James Halliday",
-        "email" : "mail@substack.net",
-        "url" : "http://substack.net"
+        "name" : "Jiwon Choi",
+	"email" : "1890mah@gmail.com",
+	"url": "dolsup.github.io"
     }
 }

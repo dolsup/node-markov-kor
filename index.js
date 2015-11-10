@@ -4,7 +4,7 @@ var Lazy = require('lazy');
 var Hash = require('hashish');
 
 module.exports = function (order) {
-    if (!order) order = 2;
+    if (!order) order = 1;
     var db = {};
     var self = {};
     
@@ -83,7 +83,8 @@ module.exports = function (order) {
     };
     
     self.search = function (text) {
-        var words = text.split(/\s+/);
+        var words = '';
+        if(text) words = text.split(/\s+/);
         
         // find a starting point...
         var start = null;
@@ -147,7 +148,7 @@ module.exports = function (order) {
     self.fill = function (cur, limit) {
         var res = [ deck.pick(db[cur].words) ];
         if (!res[0]) return [];
-        if (limit && res.length >= limit) return res;;
+        if (limit && res.length >= limit) return res;
         
         var pcur = cur;
         var ncur = cur;
@@ -169,7 +170,7 @@ module.exports = function (order) {
                 if (next) {
                     ncur = next.key;
                     res.push(next.word);
-                    if (limit && res.length >= limit) break;
+                    if ((limit && res.length >= limit) || next.word.slice(-1) === '.') break;
                 }
             }
         }
@@ -185,6 +186,10 @@ module.exports = function (order) {
     self.word = function (cur) {
         return db[cur] && deck.pick(db[cur].words);
     };
+    
+    self.generateText = function(text, limit) {
+        return self.respond(text, limit).join(' ').replace(/_/g, ' ');
+    }
     
     return self;
 };
