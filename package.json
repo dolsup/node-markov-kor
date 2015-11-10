@@ -8,7 +8,7 @@
     },
     "main" : "./index.js",
     "directories" : {
-        "lib" : ".",
+        "lib" : "."
     },
     "engines" : {
         "node" : ">=0.4.0"

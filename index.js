@@ -83,8 +83,8 @@ module.exports = function (order) {
     };
     
     self.search = function (text) {
-        var words = '';
-        if(text) words = text.split(/\s+/);
+        if(!text) text = '';
+        var words = text.split(/\s+/);
         
         // find a starting point...
         var start = null;
@@ -154,23 +154,25 @@ module.exports = function (order) {
         var ncur = cur;
         
         while (pcur || ncur) {
-            if (pcur) {
+            if (pcur && !prevEnd) {
                 var prev = self.prev(pcur);
                 pcur = null;
                 if (prev) {
                     pcur = prev.key;
-                    res.unshift(prev.word);
-                    if (limit && res.length >= limit) break;
+                    if(prev.word.match(/[.?!]$/g) === null)
+                        res.unshift(prev.word);
+                    else pcur = false;
+                    if((limit && res.length >= limit)) pcur = true;
                 }
             }
             
-            if (ncur) {
+            if (ncur && !nextEnd) {
                 var next = self.next(ncur);
                 ncur = null;
                 if (next) {
                     ncur = next.key;
                     res.push(next.word);
-                    if ((limit && res.length >= limit) || next.word.slice(-1) === '.') break;
+                    if ((limit && res.length >= limit) || next.word.match(/[.?!]$/g)) ncur = true;
                 }
             }
         }
