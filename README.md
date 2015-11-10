@@ -1,6 +1,7 @@
-# markov
+# markov-kor
 
 무작위 텍스트의 생성을 위한 마르코프 체인
+
 a fork of [node-markov](https://github.com/substack/node-markov)
 
 ## 예시 / Example
@@ -18,7 +19,7 @@ a fork of [node-markov](https://github.com/substack/node-markov)
 출력:
 ```sh
     $ node markov-park.js
-    나라로서 힘들게 살았고, 안보적으로 굉장히 정신적으로, 신체적으로 변화가 빠르게 바뀌고 있다. 태어나선 안될 나라로 서술돼 있다. 태어나선 안될 정부, 못난 역사로 아이들에게 가르치는데 이렇게 발전해 왔기 때문에 앞으로도 그렇게 국민이 대개 신고를 했듯이… 우리 국민들 모두가 정부부터 해가지고 안전을 보호하지도 못하는 것을 보면서, 국민들은 정부의 무능과 무책임에 분노하며, 국가에 대한 올바른 역사교육은 너무나 당연한 것이다.
+    그 배기 가스라든가 이러한 것에서 커다란 부담을 갖지 않도록 정부가 구조 수색과 조속한 사고 수습을 위해 많은 평가가 있기 때문에 이 두가지를 동시에 생각해야만 바른 평가가 있는 역량을 갖고 정치권, 정부 모두가 안전을 우리가 같이 지키자 하는 것은 자라나는 세대들에게 우리가 최선을 다하면 된다는 의미죠?
 ```
 
 ## node-markov에서 달라진 점
@@ -30,7 +31,6 @@ a fork of [node-markov](https://github.com/substack/node-markov)
 
 
 ## 메소드 / Methods
-=======
 
 markov(order)
 -------------
@@ -50,6 +50,11 @@ If `s`s is a stream, data events will be line-buffered and fed into `.seed()` ag
 line-by-line.
 
 If `cb` is specified it will fire once the seed text is fully ingested.
+
+.generateText(text, limit)
+--------------------------
+
+코퍼스를 바탕으로 텍스트를 생성한다. `text`는 지정할 시작 노드, `limit`는 연결할 노드의 최대 개수.
 
 .search(text)
 -------------
@@ -111,8 +116,3 @@ generated if limit is specified.
 ---------------------
 
 Search for a starting key in `text` and then call `.fill(key, limit)` on it.
-
-.generateText(text, limit)
---------------------------
-
-코퍼스를 바탕으로 텍스트를 생성한다. text는 지정할 시작 노드, limit는 연결할 노드의 최대 개수.
