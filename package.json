@@ -1,27 +1,31 @@
 {
-    "name" : "markov-kor",
-    "description" : "a fork of node-markov for generation of korean text",
-    "version" : "0.0.1",
-    "repository" : {
-        "type" : "git",
-        "url" : "git://github.com/dolsup/node-markov-kor.git"
-    },
-    "main" : "./index.js",
-    "directories" : {
-        "lib" : "."
-    },
-    "engines" : {
-        "node" : ">=0.4.0"
-    },
-    "dependencies" : {
-        "deck" : ">=0.0.3",
-        "lazy" : ">=1.0.3",
-        "hashish" : ">=0.0.2"
-    },
-    "license" : "MIT",
-    "author" : {
-        "name" : "Jiwon Choi",
-	"email" : "1890mah@gmail.com",
-	"url": "dolsup.github.io"
-    }
+  "name": "markov-kor",
+  "description": "a fork of node-markov for generation of korean text",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dolsup/node-markov-kor.git"
+  },
+  "main": "./index.js",
+  "directories": {
+    "lib": "."
+  },
+  "engines": {
+    "node": ">=0.4.0"
+  },
+  "dependencies": {
+    "deck": ">=0.0.3",
+    "lazy": ">=1.0.3",
+    "hashish": ">=0.0.2"
+  },
+  "license": "MIT",
+  "author": "Jiwon Choi <1890mah@gmail.com> (dolsup.github.io)",
+  "bugs": {
+    "url": "https://github.com/dolsup/node-markov-kor/issues"
+  },
+  "homepage": "https://github.com/dolsup/node-markov-kor#readme",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }

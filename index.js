@@ -154,7 +154,7 @@ module.exports = function (order) {
         var ncur = cur;
         
         while (pcur || ncur) {
-            if (pcur && !prevEnd) {
+            if (pcur) {
                 var prev = self.prev(pcur);
                 pcur = null;
                 if (prev) {
@@ -166,7 +166,7 @@ module.exports = function (order) {
                 }
             }
             
-            if (ncur && !nextEnd) {
+            if (ncur) {
                 var next = self.next(ncur);
                 ncur = null;
                 if (next) {
