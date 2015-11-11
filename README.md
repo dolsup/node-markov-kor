@@ -5,24 +5,27 @@
 a fork of [node-markov](https://github.com/substack/node-markov)
 
 ## 예시 / Example
-[markov-park](https://github.com/dolsup/markov-park).js:
+#### 설치
+`npm i --save markov-kor`
+
+#### [markov-park](https://github.com/dolsup/markov-park).js:
 ```js
     var fs = require('fs'); 
-    var markov = require('node-markov-kor');
+    var markov = require('markov-kor');
     
     var m = markov();
-    var s = fs.createReadStream(__dirname + '/corpus.txt');
+    var s = fs.createReadStream(__dirname + '../corpus/park.txt');
     m.seed(s, function () {
             console.log( m.generateText() );
     });
 ```
-출력:
+#### 출력
 ```sh
     $ node markov-park.js
     그 배기 가스라든가 이러한 것에서 커다란 부담을 갖지 않도록 정부가 구조 수색과 조속한 사고 수습을 위해 많은 평가가 있기 때문에 이 두가지를 동시에 생각해야만 바른 평가가 있는 역량을 갖고 정치권, 정부 모두가 안전을 우리가 같이 지키자 하는 것은 자라나는 세대들에게 우리가 최선을 다하면 된다는 의미죠?
 ```
 
-## node-markov에서 달라진 점
+## `node-markov`에서 달라진 점 / What's different to `node-markov`
 - 알파벳, 숫자 이외의 모든 문자를 걸러내지 않습니다.
 - `next.word`를 `res`에 unshift가 아니라 push합니다. 버그였는진 모르겠지만 이게 결과가 좋습니다.
 - 한 줄에 한 문장씩 코퍼스를 넣지 않았어도 문장 단위로 결과가 나옵니다.
@@ -116,3 +119,7 @@ generated if limit is specified.
 ---------------------
 
 Search for a starting key in `text` and then call `.fill(key, limit)` on it.
+
+## To-Do
+- clean 메소드 완전히 없애거나 수정해서 활용하기
+- 문장 단위로 끊는 것을 옵션으로
